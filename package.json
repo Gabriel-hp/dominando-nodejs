@@ -1,0 +1,11 @@
+{
+  "name": "dominando-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Gabriel-hp/dominando-nodejs.git",
+  "author": "Gabriel-hp <gdias6187@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
