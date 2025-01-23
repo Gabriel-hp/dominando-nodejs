@@ -33,5 +33,15 @@ server.get("/customers/:id", (req, res) => {
     return res.status(status).json(customer);
 });
 
+server.post("/customers", (req, res) => { //nesse momento colocamos o POST para inserir novos dados 
+    const { name, site} = req.body;    // essa variavel informa qual o dados serão inserido que é o nome e o site o body é o tipo de dado usado paa depois ser manipulado com json
+    const id = customers[customers.length - 1].id + 1; // aqui é para adcionar o id como estamos fazendo sem banco de dados o id é incremetado com essa logica que ela pega o ultmi da lista e adciona +1
+
+    const newCustomer = { id, name, site}; // nesse momento ele cria o novo dado inserido com o id, nome e site
+    customers.push(newCustomer); // e aqui ele adciona no nosso "banco de dados"
+
+    return res.status(201).json(newCustomer); // aqui ele tras o status 201 que é o status de inserção e mostra também o nodo dado inserido newCustomer
+});
+
 // Configura o servidor para escutar na porta 3000
 server.listen(3000);
