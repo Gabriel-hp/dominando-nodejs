@@ -20,8 +20,9 @@ server.get("/customers", (req, res) => {
     return res.json(customers);
 });
 
-// Agora vamos fazer o "Show" para exibir apenas um registro específico, utilizando o ID
-// Incrementamos no código anterior o seguinte código:
+
+
+// show
 server.get("/customers/:id", (req, res) => {
     // Adicionamos o "/:id" após a rota para que ele busque pelo ID especificado
     const id = parseInt(req.params.id); // Aqui ele recebe o ID solicitado, e o parseInt transforma a string em tipo número
@@ -33,6 +34,8 @@ server.get("/customers/:id", (req, res) => {
     return res.status(status).json(customer);
 });
 
+
+//Create
 server.post("/customers", (req, res) => { //nesse momento colocamos o POST para inserir novos dados 
     const { name, site} = req.body;    // essa variavel informa qual o dados serão inserido que é o nome e o site o body é o tipo de dado usado paa depois ser manipulado com json
     const id = customers[customers.length - 1].id + 1; // aqui é para adcionar o id como estamos fazendo sem banco de dados o id é incremetado com essa logica que ela pega o ultmi da lista e adciona +1
@@ -43,5 +46,33 @@ server.post("/customers", (req, res) => { //nesse momento colocamos o POST para 
     return res.status(201).json(newCustomer); // aqui ele tras o status 201 que é o status de inserção e mostra também o nodo dado inserido newCustomer
 });
 
-// Configura o servidor para escutar na porta 3000
-server.listen(3000);
+
+//Update
+server.put("/customers/:id", (req, res) => { //nesse momento colocamos o put para editar os dados dados 
+    const id = parseInt(req.params.id); // Aqui ele recebe o ID solicitado, e o parseInt transforma a string em tipo número
+    const { name, site} = req.body;    // essa variavel informa qual o dados serão inserido que é o nome e o site o body é o tipo de dado usado paa depois ser manipulado com json
+
+    const index = customers.findIndex(item => item.id === id); // aqui ele faz a busca pelo id para atualizar
+    const status = index >= 0 ? 200 : 404; // aqui é uma tratativa se o id não existir ele retorna o erro 
+
+    if(index >= 0){
+        customers[index] = { id: parseInt(id), name, site }; // aqui é o momento que é feio a edição 
+    }
+    return res.status(status).json( customers[index]); // aqui ele tras o status e a o novo dado alterado
+});
+
+//DELETE
+server.delete("/customers/:id", (req, res) => { //nesse momento colocamos o delete para excluir os dados dados 
+    const id = parseInt(req.params.id); // Aqui ele recebe o ID solicitado, e o parseInt transforma a string em tipo número
+    const index = customers.findIndex(item => item.id === id); // aqui ele faz a busca pelo id para excluir
+    const status = index >= 0 ? 200 : 404; // aqui é uma tratativa se o id não existir ele retorna o erro 
+
+    if(index >= 0){
+        customers.splice(index, 1); // nesse momento ele faz a exclusão do dado selecionando e esse 1 é para informar quatdos dados são fetados
+    }
+
+    return res.status(status).json(); // aqui ele tras o status e a o novo dado alterado
+
+});
+    // Configura o servidor para escutar na porta 3000
+    server.listen(3000);
