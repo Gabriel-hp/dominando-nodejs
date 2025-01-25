@@ -63,4 +63,4 @@ class CustumersController{
     }
 }
 
-module.exports = new CustumersController();
+export default new CustumersController();
