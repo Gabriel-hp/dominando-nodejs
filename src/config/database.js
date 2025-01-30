@@ -1,15 +1,12 @@
-const { underscoredIf } = require("sequelize/lib/utils");
-
 module.exports = {
-    dialect: "postres",
+    dialect: "postgres", // Corrigido de "postres" para "postgres"
     host: "localhost",
-    username: "nomeusuario",
-    password: "ahahahnaha",
-    database: "nome_do_banco_de_dados",
-    host: "localhost",
+    username: "postgres", // Corrigido de "postres" para "postgres"
+    password: "1234",
+    database: "back_node",
     define: {
-        timestamp: true,
+        timestamps: true, // Corrigido de "timestamp" para "timestamps"
         underscored: true, 
         underscoredAll: true, 
     }
-}
+};
